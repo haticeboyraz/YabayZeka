@@ -4,11 +4,37 @@ import soundfile as sf
 import speech_recognition as sr
 import numpy as np
 import os
+import pyautogui
+import time
+import pyperclip
+
+# Koordinatlar (Copilot Chat)
+mesaj_yazma_alani = (1099, 654)
+mesaj_gonder_buton = (1333, 691)
 
 # Kayıt durumu
 kaydediliyor = False
 ses_verisi = []
 sample_rate = 16000
+
+def copilot_mesaj_gonder(metin):
+    """Copilot Chat'e mesaj gönderir"""
+    print(f"\n📤 Copilot'a gönderiliyor: {metin}")
+    
+    # Mesaj yazma alanına 2 kez tıkla
+    pyautogui.click(*mesaj_yazma_alani)
+    time.sleep(0.1)
+    pyautogui.click(*mesaj_yazma_alani)
+    time.sleep(0.1)
+    
+    # Mesajı panoya kopyala ve yapıştır (Türkçe karakter desteği)
+    pyperclip.copy(metin)
+    pyautogui.hotkey('ctrl', 'v')
+    time.sleep(0.1)
+    
+    # Gönder butonuna tıkla
+    pyautogui.click(*mesaj_gonder_buton)
+    print("✅ Mesaj gönderildi!\n")
 
 def ses_kaydet():
     """F9 ile kayıt başlat/durdur ve metne çevir"""
@@ -40,6 +66,9 @@ def ses_kaydet():
                 
                 metin = recognizer.recognize_google(audio, language="tr")
                 print(f"\n📝 Algılanan Metin: {metin}\n")
+                
+                # Copilot Chat'e gönder
+                copilot_mesaj_gonder(metin)
                 
             except sr.UnknownValueError:
                 print("❌ Ses anlaşılamadı")
