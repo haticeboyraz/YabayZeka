@@ -5,7 +5,7 @@ a = Analysis(
     ['SesliCopilot.py'],
     pathex=[],
     binaries=[],
-    datas=[('mic.ico', '.')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -32,7 +32,7 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=['mic.ico'],
+    icon=['ikon.ico'],
 )
 coll = COLLECT(
     exe,
